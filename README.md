@@ -3,7 +3,8 @@
 This is a **simple REST API** for managing notes, built using **Node.js, Express, TypeScript, and MongoDB**.
 
 ## 🚀 Features
-- Create, read, and delete notes
+- Create, read, update, and delete notes
+- Categorize notes
 - Uses **MongoDB & Mongoose** for data storage
 - Implements **TypeScript** for type safety
 - Basic **error handling**
@@ -16,14 +17,12 @@ This is a **simple REST API** for managing notes, built using **Node.js, Express
 
 ---
 
-
-
 ## ⚙️ Installation & Setup
 
 ### **1️⃣ Clone the Repository**
 ```sh
-https://github.com/siredave/Genesys_Learnable_Task10.git
-cd Genesys_Learnable_Task10
+https://github.com/siredave/Genesys_Backend_task11
+cd Genesys_Backend_task11
 ```
 
 ### **2️⃣ Install Dependencies**
@@ -53,7 +52,11 @@ npm run dev
 ```json
 {
   "title": "My First Note",
-  "content": "This is a test note."
+  "content": "This is a test note.",
+  "category": {
+    "id": "1",
+    "name": "Personal"
+  }
 }
 ```
 #### **Response**
@@ -62,6 +65,10 @@ npm run dev
   "_id": "65ab23cde45678f901234567",
   "title": "My First Note",
   "content": "This is a test note.",
+  "category": {
+    "id": "1",
+    "name": "Personal"
+  },
   "createdAt": "2025-03-11T10:00:00.123Z",
   "updatedAt": "2025-03-11T10:00:00.123Z"
 }
@@ -77,7 +84,11 @@ npm run dev
   {
     "_id": "65ab23cde45678f901234567",
     "title": "My First Note",
-    "content": "This is a test note."
+    "content": "This is a test note.",
+    "category": {
+      "id": "1",
+      "name": "Personal"
+    }
   }
 ]
 ```
@@ -91,13 +102,66 @@ npm run dev
 {
   "_id": "65ab23cde45678f901234567",
   "title": "My First Note",
-  "content": "This is a test note."
+  "content": "This is a test note.",
+  "category": {
+    "id": "1",
+    "name": "Personal"
+  }
 }
 ```
 
 ---
 
-### **4️⃣ Delete a Note**
+### **4️⃣ Get Notes by Category ID**
+**GET** `/api/notes/categories/:categoryId`
+#### **Response**
+```json
+[
+  {
+    "_id": "65ab23cde45678f901234567",
+    "title": "My First Note",
+    "content": "This is a test note.",
+    "category": {
+      "id": "1",
+      "name": "Personal"
+    }
+  }
+]
+```
+
+---
+
+### **5️⃣ Update a Note**
+**PUT** `/api/notes/:id`
+#### **Request Body (JSON)**
+```json
+{
+  "title": "Updated Note Title",
+  "content": "Updated content.",
+  "category": {
+    "id": "1",
+    "name": "Personal"
+  }
+}
+```
+#### **Response**
+```json
+{
+  "_id": "65ab23cde45678f901234567",
+  "title": "Updated Note Title",
+  "content": "Updated content.",
+  "category": {
+    "id": "1",
+    "name": "Personal"
+  },
+  "createdAt": "2025-03-11T10:00:00.123Z",
+  "updatedAt": "2025-03-11T10:00:00.123Z"
+}
+```
+
+---
+
+### **6️⃣ Delete a Note**
 **DELETE** `/api/notes/:id`
 #### **Response**
 ```json
@@ -113,7 +177,11 @@ npm run dev
    ```json
    {
      "title": "Test Note",
-     "content": "This is a sample note."
+     "content": "This is a sample note.",
+     "category": {
+       "id": "1",
+       "name": "Personal"
+     }
    }
    ```
 4. Click **Send**
@@ -122,7 +190,6 @@ npm run dev
 ---
 
 ## 📌 Future Improvements
-- Add **update note** endpoint
 - Implement **user authentication** (JWT)
 - Add **pagination** for listing notes
 

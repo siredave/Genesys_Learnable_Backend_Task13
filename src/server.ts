@@ -5,6 +5,9 @@ import mongoose from "mongoose";
 import connectToDb from "./database/db";
 import noteRoutes from "./routes/noteRoutes";
 import errorHandler from "./middleware/errorHandler";
+import validateNote from "./middleware/validateNote";
+import logger from "./middleware/logger";
+
 
 dotenv.config();
 
@@ -15,9 +18,10 @@ const PORT = process.env.PORT;
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(logger); // Add logging middleware
 
 // Routes
-app.use("/api/notes", noteRoutes);
+app.use("/api/notes",validateNote , noteRoutes);
 
 // Error Handler Middleware
 app.use(errorHandler);

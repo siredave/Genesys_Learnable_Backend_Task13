@@ -1,4 +1,4 @@
-import Note from "../models/noteTaking";
+import { Note } from "../models/noteTaking";
 import { Request, Response } from "express";
 
 export const getNotes = async (req: Request, res: Response): Promise<void> => {
@@ -48,3 +48,30 @@ export const deleteNote = async (req: Request, res: Response): Promise<void> => 
     res.status(500).json({ message: "Server error" });
   }
 };
+
+
+export const getNoteByCategory = async (req: Request, res: Response): Promise<void> => {
+  try {
+      const notes = await Note.find({ "category.id": req.params.categoryId });
+      res.json(notes);
+  } catch (error) {
+      if (error instanceof Error) {
+        res.status(500).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Unknown error" });
+      }
+  }
+}
+
+export const updateNote =  async (req: Request, res: Response): Promise<void> => {
+  try {
+      const note = await Note.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      if (!note) {
+        res.status(404).json({ message: "Note not found" });
+        return;
+      }
+      res.json(note);
+  } catch (error) {
+      res.status(500).json({ message: "Server error"});
+  }
+}

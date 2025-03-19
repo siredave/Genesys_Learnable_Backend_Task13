@@ -1,5 +1,17 @@
 import mongoose from "mongoose";
 
+const CategorySchema = new mongoose.Schema({
+  id: {
+    type: String,
+    required: [true, "Category ID is required"],
+  },
+  name: {
+    type: String,
+    required: [true, "Category name is required"],
+  },
+});
+
+
 const NoteSchema = new mongoose.Schema(
   {
     title: {
@@ -14,6 +26,10 @@ const NoteSchema = new mongoose.Schema(
       trim: true,
       maxLength: [500, "Content cannot be more than 500 characters"],
     },
+    category: {
+      type: CategorySchema,
+      required: [true, "Category is required"],
+    },
   },
   {
     timestamps: true, // Automatically adds createdAt & updatedAt
@@ -21,4 +37,6 @@ const NoteSchema = new mongoose.Schema(
 );
 
 const Note = mongoose.model("Note", NoteSchema);
-export default Note;
+const Category = mongoose.model("Category", CategorySchema);
+
+export { Note, Category };
