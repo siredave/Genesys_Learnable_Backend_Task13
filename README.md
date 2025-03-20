@@ -44,7 +44,11 @@ npm run dev
 
 ---
 
-## 📝 API Endpoints
+## 🌐 Hosted API
+The API is hosted on Render. You can access it at:
+[https://genesys-backend-task11.onrender.com](https://genesys-backend-task11.onrender.com)
+
+### **API Endpoints**
 
 ### **1️⃣ Create a Note**
 **POST** `/api/notes`
@@ -203,4 +207,3 @@ npm run dev
 
 ## 📜 License
 This project is **MIT Licensed**.
-
