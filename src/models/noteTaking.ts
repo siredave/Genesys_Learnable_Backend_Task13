@@ -11,7 +11,6 @@ const CategorySchema = new mongoose.Schema({
   },
 });
 
-
 const NoteSchema = new mongoose.Schema(
   {
     title: {
