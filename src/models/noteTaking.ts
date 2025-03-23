@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
+import { Note, Category } from "../models/interfaces";
 
-const CategorySchema = new mongoose.Schema({
+const CategorySchema: Schema = new mongoose.Schema({
   id: {
     type: String,
     required: [true, "Category ID is required"],
@@ -11,7 +12,7 @@ const CategorySchema = new mongoose.Schema({
   },
 });
 
-const NoteSchema = new mongoose.Schema(
+const NoteSchema: Schema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -29,13 +30,18 @@ const NoteSchema = new mongoose.Schema(
       type: CategorySchema,
       required: [true, "Category is required"],
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   {
     timestamps: true, // Automatically adds createdAt & updatedAt
   }
 );
 
-const Note = mongoose.model("Note", NoteSchema);
-const Category = mongoose.model("Category", CategorySchema);
+const Note = mongoose.model<Note & Document>("Note", NoteSchema);
+const Category = mongoose.model<Note & Document>("Category", CategorySchema);
 
 export { Note, Category };

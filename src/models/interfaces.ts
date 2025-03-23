@@ -1,7 +1,10 @@
 import { Request } from "express";
 
-export interface CustomRequest extends Request {
-  user?: AuthPayload;
+
+declare module "express-serve-static-core" {
+  interface Request {
+      user: AuthPayload;
+  }
 }
 
 export interface Category {
