@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { Note } from "../models/note";
+import { Note } from "../models/interfaces";
 
 const validateNote = (req: Request, res: Response, next: NextFunction) :void => {
     const { title, content, category } = req.body as Note;

@@ -4,6 +4,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import connectToDb from "./database/db";
 import noteRoutes from "./routes/noteRoutes";
+import authRoutes from "./routes/authRoutes";
 import errorHandler from "./middleware/errorHandler";
 import logger from "./middleware/logger";
 
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(logger); // Add logging middleware
 
 // Routes
+app.use("/api/auth", authRoutes);
 app.use("/api/notes", noteRoutes);
 
 // Error Handler Middleware
