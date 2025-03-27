@@ -5,6 +5,8 @@ This is a **simple REST API** for managing notes, built using **Node.js, Express
 ## 🚀 Features
 - Create, read, update, and delete notes
 - Categorize notes
+- User authentication with **JWT**
+- Notes are associated with specific users
 - Uses **MongoDB & Mongoose** for data storage
 - Implements **TypeScript** for type safety
 - Basic **error handling**
@@ -35,6 +37,7 @@ Create a `.env` file in the root folder and add:
 ```sh
 MONGO_URI=mongodb://localhost:5000/noteDB
 PORT=5000
+JWT_SECRET=your_jwt_secret
 ```
 
 ### **4️⃣ Start the Server**
@@ -48,7 +51,9 @@ npm run dev
 The API is hosted on Render. You can access it at:
 [https://genesys-backend-task11.onrender.com](https://genesys-backend-task11.onrender.com)
 
-### **API Endpoints**
+---
+
+## 📝 API Endpoints
 
 ### **1️⃣ Create a Note**
 **POST** `/api/notes`
@@ -73,6 +78,7 @@ The API is hosted on Render. You can access it at:
     "id": "1",
     "name": "Personal"
   },
+  "user": "userId123",
   "createdAt": "2025-03-11T10:00:00.123Z",
   "updatedAt": "2025-03-11T10:00:00.123Z"
 }
@@ -92,7 +98,8 @@ The API is hosted on Render. You can access it at:
     "category": {
       "id": "1",
       "name": "Personal"
-    }
+    },
+    "user": "userId123"
   }
 ]
 ```
@@ -110,7 +117,8 @@ The API is hosted on Render. You can access it at:
   "category": {
     "id": "1",
     "name": "Personal"
-  }
+  },
+  "user": "userId123"
 }
 ```
 
@@ -128,7 +136,8 @@ The API is hosted on Render. You can access it at:
     "category": {
       "id": "1",
       "name": "Personal"
-    }
+    },
+    "user": "userId123"
   }
 ]
 ```
@@ -158,6 +167,7 @@ The API is hosted on Render. You can access it at:
     "id": "1",
     "name": "Personal"
   },
+  "user": "userId123",
   "createdAt": "2025-03-11T10:00:00.123Z",
   "updatedAt": "2025-03-11T10:00:00.123Z"
 }
@@ -170,6 +180,46 @@ The API is hosted on Render. You can access it at:
 #### **Response**
 ```json
 { "message": "Note deleted successfully" }
+```
+
+---
+
+### **7️⃣ Register a User**
+**POST** `/api/auth/register`
+#### **Request Body (JSON)**
+```json
+{
+  "username": "john_doe",
+  "email": "john@example.com",
+  "password": "securepassword"
+}
+```
+#### **Response**
+```json
+{
+  "success": true,
+  "message": "User registered successfully"
+}
+```
+
+---
+
+### **8️⃣ Login a User**
+**POST** `/api/auth/login`
+#### **Request Body (JSON)**
+```json
+{
+  "email": "john@example.com",
+  "password": "securepassword"
+}
+```
+#### **Response**
+```json
+{
+  "success": true,
+  "message": "Logged in successfully",
+  "token": "your_jwt_token"
+}
 ```
 
 ---
@@ -188,14 +238,18 @@ The API is hosted on Render. You can access it at:
      }
    }
    ```
-4. Click **Send**
-5. You should get a success response 🎉
+4. Add an **Authorization Header** with the JWT token:
+   ```
+   Authorization: Bearer your_jwt_token
+   ```
+5. Click **Send**
+6. You should get a success response 🎉
 
 ---
 
 ## 📌 Future Improvements
-- Implement **user authentication** (JWT)
 - Add **pagination** for listing notes
+- Implement **role-based access control**
 
 ---
 

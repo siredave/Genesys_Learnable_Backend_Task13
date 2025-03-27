@@ -6,8 +6,11 @@ import connectToDb from "./database/db";
 import noteRoutes from "./routes/noteRoutes";
 import authRoutes from "./routes/authRoutes";
 import errorHandler from "./middleware/errorHandler";
-import authMiddleware from "./middleware/authMiddleware";
+import authMiddleware from "./middleware/authMiddleware"; // Ensure this file exists in the 'middleware' folder
 import logger from "./middleware/logger";
+
+
+
 
 dotenv.config();
 
